@@ -1,0 +1,23 @@
+{
+  "papara": {
+    "type": "papara",
+    "fields": {
+      "alici": {
+        "key": "Alici",
+        "strategy": "nextLine"
+      },
+      "adSoyad": {
+        "key": "Ad Soyad",
+        "strategy": "nextLine"
+      },
+      "tarih": {
+        "key": "Tarih",
+        "strategy": "nextLine"
+      },
+      "islemNo": {
+        "key": "Islem No",
+        "strategy": "sameLine"
+      }
+    }
+  }
+}
