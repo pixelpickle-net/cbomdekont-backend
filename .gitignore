@@ -20,10 +20,6 @@ go.work
 # Environment variables file
 .env
 
-# Config files
-config.yaml
-*.config
-
 # IDE-specific files
 .idea/
 .vscode/
