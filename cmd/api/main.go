@@ -95,9 +95,9 @@ func main() {
 	}
 
 	// schema.json dosyasının yolunu doğru şekilde belirtin
-	schemaPath := "schema.json"
+	schemaPath := "/root/schema.json"
 	if _, err := os.Stat(schemaPath); os.IsNotExist(err) {
-		logger.Panic("schema.json file not found in the root directory", zap.Error(err))
+		logger.Panic("schema.json file not found", zap.String("path", schemaPath), zap.Error(err))
 	}
 
 	awsServer, err := http.NewAWSService(logger, &awsCfg, schemaPath)

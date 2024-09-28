@@ -26,6 +26,7 @@ services:
       - AWS_REGION
     volumes:
       - ../config:/app/config
+      - ../schema.json:/root/schema.json
     networks:
       - external-net
     labels:
