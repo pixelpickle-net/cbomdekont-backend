@@ -90,8 +90,12 @@ func main() {
 	}
 
 	var awsCfg http.AWSConfig
-	if err := viper.UnmarshalKey("aws", &awsCfg); err != nil {
-		logger.Panic("AWS config unmarshal failed", zap.Error(err))
+	awsCfg.AccessKeyID = os.Getenv("AWS_ACCESS_KEY_ID")
+	awsCfg.SecretAccessKey = os.Getenv("AWS_SECRET_ACCESS_KEY")
+	awsCfg.Region = os.Getenv("AWS_REGION")
+
+	if awsCfg.AccessKeyID == "" || awsCfg.SecretAccessKey == "" || awsCfg.Region == "" {
+		logger.Panic("AWS credentials are not set properly")
 	}
 
 	// schema.json dosyasının yolunu doğru şekilde belirtin
