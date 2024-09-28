@@ -31,7 +31,7 @@ services:
       - external-net
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.app.rule=Host(`backend.pixelpickle.com`)"
+      - "traefik.http.routers.app.rule=Host(`57.129.41.91`)"
       - "traefik.http.routers.app.entrypoints=web"
       - "traefik.http.services.app.loadbalancer.server.port=8080"
 
