@@ -24,10 +24,6 @@ type BaseResponse struct {
 	Data    interface{} `json:"data,omitempty"`
 }
 
-func init() {
-	println("eminin götü  kocaman keza denizinkide öyle")
-}
-
 func main() {
 	fs := pflag.NewFlagSet("default", pflag.ContinueOnError)
 	fs.String("config", "config.yaml", "path to config file")
@@ -63,13 +59,18 @@ func main() {
 	viper.SetEnvKeyReplacer(strings.NewReplacer("-", "_"))
 	viper.AutomaticEnv()
 
-	if _, err := os.Stat(filepath.Join(viper.GetString("config-path"), viper.GetString("config"))); err == nil {
-		viper.SetConfigName(strings.TrimSuffix(viper.GetString("config"), filepath.Ext(viper.GetString("config"))))
-		viper.AddConfigPath(viper.GetString("config-path"))
+	configPath := viper.GetString("config-path")
+	configFile := viper.GetString("config")
+
+	if _, err := os.Stat(filepath.Join(configPath, configFile)); err == nil {
+		viper.SetConfigName(strings.TrimSuffix(configFile, filepath.Ext(configFile)))
+		viper.AddConfigPath(configPath)
 		err = viper.ReadInConfig()
 		if err != nil {
 			panic(err)
 		}
+	} else {
+		fmt.Printf("Config file %s not found, using default values\n", filepath.Join(configPath, configFile))
 	}
 
 	logger, err := configureLogging("info")
@@ -94,7 +95,11 @@ func main() {
 	}
 
 	// schema.json dosyasının yolunu doğru şekilde belirtin
-	schemaPath := filepath.Join(viper.GetString("config-path"), "schema.json")
+	schemaPath := "schema.json"
+	if _, err := os.Stat(schemaPath); os.IsNotExist(err) {
+		logger.Panic("schema.json file not found in the root directory", zap.Error(err))
+	}
+
 	awsServer, err := http.NewAWSService(logger, &awsCfg, schemaPath)
 	if err != nil {
 		logger.Panic("Failed to initialize AWS service", zap.Error(err))
