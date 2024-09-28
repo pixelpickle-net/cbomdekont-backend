@@ -2,12 +2,12 @@ name: Development CI/CD
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 env:
-  GO_VERSION: '1.22.5'
+  GO_VERSION: "1.22"
 
 jobs:
   build-and-deploy:
@@ -16,21 +16,21 @@ jobs:
     if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
           go-version: ${{ env.GO_VERSION }}
-      
+
       - name: Build
         run: go build -v ./...
-      
+
       - name: Create .env file
         run: |
           echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> .env
           echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> .env
           echo "AWS_REGION=${{ secrets.AWS_REGION }}" >> .env
-      
+
       - name: Build and deploy with Docker Compose
         run: |
           docker-compose -f deployments/docker-compose.yaml build

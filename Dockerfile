@@ -16,5 +16,4 @@ WORKDIR /root/
 
 COPY --from=builder /app/server .
 
-EXPOSE 2303
 CMD ["./server"]
