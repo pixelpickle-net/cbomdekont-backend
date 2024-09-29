@@ -39,9 +39,7 @@ services:
       - "traefik.http.routers.app.rule=Host(`backend.pixelpickle.net`)"
       - "traefik.http.routers.app.entrypoints=web"
       - "traefik.http.routers.app.tls=true"
-   
-    ports:
-      - "9898:9898"
+      - "traefik.http.services.app.loadbalancer.server.port=9898"
 
 networks:
   external-net:
