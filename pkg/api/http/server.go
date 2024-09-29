@@ -144,7 +144,7 @@ func (s *Server) registerHandlers() {
 func (s *Server) registerMiddlewares() {
 	// CORS middleware'ini güncelleyin
 	s.app.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"*"},
+		AllowOrigins:     []string{"http://localhost:5173", "http://localhost:3000"},
 		AllowMethods:     []string{"GET", "POST", "HEAD", "PUT", "DELETE", "PATCH"},
 		AllowHeaders:     []string{"Origin", "Content-Type", "Accept", "Authorization"},
 		AllowCredentials: true,
