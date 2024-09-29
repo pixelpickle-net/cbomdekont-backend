@@ -28,7 +28,7 @@ func main() {
 	fs := pflag.NewFlagSet("default", pflag.ContinueOnError)
 	fs.String("config", "config.yaml", "path to config file")
 	fs.String("config-path", ".", "config file directory")
-	fs.String("port", "9898", "port to bind HTTP listener")
+	fs.String("port", "80", "port to bind HTTP listener")
 	fs.String("level", "info", "log level debug, info, warn, error, fatal or panic")
 
 	versionFlag := fs.BoolP("version", "v", false, "version number")
