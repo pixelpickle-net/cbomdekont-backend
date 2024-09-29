@@ -132,13 +132,23 @@ func (s *Server) registerHandlers() {
 
 	v1.Post("/test", s.testTextractorHandler)
 
+	// Preflight isteklerini ele alın
+	s.app.Use(func(c fiber.Ctx) error {
+		if c.Method() == fiber.MethodOptions {
+			return c.SendStatus(fiber.StatusOK)
+		}
+		return c.Next()
+	})
 }
 
 func (s *Server) registerMiddlewares() {
-	// CORS middleware'ini ekleyin
+	// CORS middleware'ini güncelleyin
 	s.app.Use(cors.New(cors.Config{
-		AllowOrigins: []string{"http://localhost:5173", "http://localhost:5173/*"},
-		AllowHeaders: []string{"Origin", "Content-Type", "Accept"},
+		AllowOrigins:     []string{"*"},
+		AllowMethods:     []string{"GET", "POST", "HEAD", "PUT", "DELETE", "PATCH"},
+		AllowHeaders:     []string{"Origin", "Content-Type", "Accept", "Authorization"},
+		AllowCredentials: true,
+		MaxAge:           300,
 	}))
 
 	prom := NewPrometheusMiddleware()
