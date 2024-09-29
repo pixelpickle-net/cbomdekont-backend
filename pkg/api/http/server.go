@@ -111,7 +111,7 @@ func (s *Server) startServer() *fiber.App {
 
 	// start the server in the background
 	go func() {
-		if err := s.app.Listen(fmt.Sprintf("%s:%s", s.config.Host, s.config.Port)); err != nil {
+		if err := s.app.Listen(fmt.Sprintf(":%s", s.config.Port)); err != nil {
 			s.logger.Fatal("HTTP server crashed", zap.Error(err))
 		}
 	}()

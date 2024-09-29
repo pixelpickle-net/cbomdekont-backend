@@ -67,10 +67,10 @@ func main() {
 		viper.AddConfigPath(configPath)
 		err = viper.ReadInConfig()
 		if err != nil {
-			panic(err)
+			fmt.Println("Config file not found, using default values")
 		}
 	} else {
-		fmt.Printf("Config file %s not found, using default values\n", filepath.Join(configPath, configFile))
+		fmt.Println("Config file not found, using default values")
 	}
 
 	logger, err := configureLogging("info")
