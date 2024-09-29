@@ -41,8 +41,6 @@ services:
       - "traefik.http.routers.app.tls=true"
       - "traefik.http.routers.app.tls.certresolver=letsencrypt"
       - "traefik.http.services.app.loadbalancer.server.port=9898"
-      - "traefik.http.middlewares.app-strip-prefix.stripprefix.prefixes=/api/v1"
-      - "traefik.http.routers.app.middlewares=app-strip-prefix@docker"
 
 networks:
   external-net:

@@ -103,7 +103,6 @@ func (s *Server) ListenAndServe() (*fiber.App, *int32, *int32) {
 }
 
 func (s *Server) startServer() *fiber.App {
-
 	// determine if the port is specified
 	if s.config.Port == "0" {
 		// move on immediately
