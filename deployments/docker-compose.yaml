@@ -5,8 +5,13 @@ services:
     image: traefik:v2.9
     command:
       - "--configfile=/etc/traefik/traefik.yml"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
     ports:
       - "80:80"
+      - "443:443"
       - "8080:8080"
     networks:
       - external-net
@@ -31,12 +36,13 @@ services:
       - external-net
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.app.rule=Host(`57.129.41.91`)"
-      - "traefik.http.routers.app.entrypoints=web"
+      - "traefik.http.routers.app.rule=Host(`backend.pixelpickle.net`)"
+      - "traefik.http.routers.app.entrypoints=websecure"
+      - "traefik.http.routers.app.tls=true"
       - "traefik.http.services.app.loadbalancer.server.port=9898"
 
 networks:
   external-net:
     name: external-net
     driver: bridge
-    
+
