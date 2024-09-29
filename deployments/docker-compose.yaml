@@ -40,7 +40,7 @@ services:
       - "traefik.http.routers.app.rule=Host(`backend.pixelpickle.net`)"
       - "traefik.http.routers.app.entrypoints=web"
       - "traefik.http.routers.app.tls=true"
-
+      - "traefik.http.routers.app.tls.certresolver=letsencrypt"
    
     ports:
       - "9898:9898"
