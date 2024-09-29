@@ -25,3 +25,18 @@ certificatesResolvers:
       storage: /letsencrypt/acme.json
       httpChallenge:
         entryPoint: web
+
+http:
+  middlewares:
+    https-redirect:
+      redirectScheme:
+        scheme: https
+        permanent: true
+
+  routers:
+    http-catchall:
+      rule: "hostregexp(`{host:.+}`)"
+      entrypoints:
+        - web
+      middlewares:
+        - https-redirect
