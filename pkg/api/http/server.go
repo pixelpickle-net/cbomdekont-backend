@@ -129,7 +129,7 @@ func (s *Server) registerHandlers() {
 	//s.app.Get("/debug/pprof/", pprof.New())
 	v1.Get("/healthz", s.healthzHandler)
 
-	v1.Get("/test", s.testTextractorHandler)
+	v1.Post("/test", s.testTextractorHandler)
 
 }
 
