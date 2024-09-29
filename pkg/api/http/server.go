@@ -6,6 +6,7 @@ import (
 
 	"github.com/gofiber/fiber/v3"
 	"github.com/gofiber/fiber/v3/middleware/adaptor"
+	"github.com/gofiber/fiber/v3/middleware/cors" // Yeni import
 	"github.com/gomodule/redigo/redis"
 	"github.com/mehmetsafabenli/cbomdekont/pkg/fscache"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
@@ -134,6 +135,12 @@ func (s *Server) registerHandlers() {
 }
 
 func (s *Server) registerMiddlewares() {
+	// CORS middleware'ini ekleyin
+	s.app.Use(cors.New(cors.Config{
+		AllowOrigins: []string{"http://localhost:5173"}, // İzin verilen origin
+		AllowHeaders: []string{"Origin", "Content-Type", "Accept"},
+	}))
+
 	prom := NewPrometheusMiddleware()
 	s.app.Use(prom.Handler)
 	//otel := NewOpenTelemetryMiddleware()
