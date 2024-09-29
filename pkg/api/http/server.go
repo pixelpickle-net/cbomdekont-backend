@@ -69,10 +69,9 @@ func (s *Server) ListenAndServe() (*fiber.App, *int32, *int32) {
 	ctx := context.Background()
 
 	go s.startMetricsServer()
-
+	s.registerMiddlewares()
 	s.initTracer(ctx)
 	s.registerHandlers()
-	s.registerMiddlewares()
 
 	// load configs in memory and start watching for changes in the config dir
 	if stat, err := os.Stat(s.config.ConfigPath); err == nil && stat.IsDir() {
