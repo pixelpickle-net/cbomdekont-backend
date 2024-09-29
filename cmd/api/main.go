@@ -88,7 +88,6 @@ func main() {
 	if err := viper.Unmarshal(&srvCfg); err != nil {
 		logger.Panic("config unmarshal failed", zap.Error(err))
 	}
-	srvCfg.Port = "9898" // Port numarasını açıkça belirtin
 
 	var awsCfg http.AWSConfig
 	awsCfg.AccessKeyID = os.Getenv("AWS_ACCESS_KEY_ID")
