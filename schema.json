@@ -17,6 +17,10 @@
       "islemNo": {
         "key": "Islem No",
         "strategy": "sameLine"
+      },
+      "tutar": {
+        "key": "Tutar",
+        "strategy": "nextLine"
       }
     }
   }
