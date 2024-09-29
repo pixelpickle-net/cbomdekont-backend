@@ -121,6 +121,10 @@ func (s *Server) startServer() *fiber.App {
 }
 
 func (s *Server) registerHandlers() {
+	// Root path handler
+	s.app.Get("/", func(c fiber.Ctx) error {
+		return c.SendString("API is running")
+	})
 
 	//create api group for v1
 	v1 := s.app.Group("/api/v1")
@@ -129,7 +133,6 @@ func (s *Server) registerHandlers() {
 	v1.Get("/healthz", s.healthzHandler)
 
 	v1.Post("/test", s.testTextractorHandler)
-
 }
 
 func (s *Server) registerMiddlewares() {
