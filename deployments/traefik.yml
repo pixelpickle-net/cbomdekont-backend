@@ -19,9 +19,9 @@ log:
 accessLog: {}
 
 certificatesResolvers:
-  myresolver:
+  letsencrypt:
     acme:
       email: mehmetsafabenli@gmail.com
-      storage: acme.json
+      storage: /letsencrypt/acme.json
       httpChallenge:
         entryPoint: web
