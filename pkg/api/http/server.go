@@ -132,12 +132,6 @@ func (s *Server) registerHandlers() {
 	v1.Post("/test", s.testTextractorHandler)
 
 	// Preflight isteklerini ele alın
-	s.app.Use(func(c *fiber.Ctx) error {
-		if c.Method() == fiber.MethodOptions {
-			return c.SendStatus(fiber.StatusOK)
-		}
-		return c.Next()
-	})
 }
 
 func (s *Server) registerMiddlewares() {
