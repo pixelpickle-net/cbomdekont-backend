@@ -18,7 +18,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./traefik.yml:/etc/traefik/traefik.yml:ro
-      - ./letsencrypt:/letsencrypt # SSL sertifikaları için kalıcı depolama
+      # - ./letsencrypt:/letsencrypt # Bu satırı yorum satırı haline getirin veya silin
 
   app:
     build:
