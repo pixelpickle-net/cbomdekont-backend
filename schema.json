@@ -23,5 +23,44 @@
         "strategy": "nextLine"
       }
     }
+  },
+  "halkbank": {
+    "type": "halkbank",
+    "fields": {
+      "tarih": {
+        "key": "Tarih",
+        "strategy": "sameLine"
+      },
+      "islRef": {
+        "key": "ISL REF",
+        "strategy": "sameLine"
+      },
+      "tckn": {
+        "key": "TCKN",
+        "strategy": "sameLine"
+      },
+      "gonderenAdSoyad": {
+        "key": "GÖNDEREN",
+        "strategy": "sameLine"
+      },
+      "gonderenHesapNo": {
+        "key": "",
+        "strategy": "nextLine",
+        "hint": "After GÖNDEREN"
+      },
+      "alici": {
+        "key": "ALICI",
+        "strategy": "sameLine"
+      },
+      "aliciHesapNo": {
+        "key": "",
+        "strategy": "nextLine",
+        "hint": "After ALICI"
+      },
+      "tutar": {
+        "key": "EFT TUTARI",
+        "strategy": "sameLine"
+      }
+    }
   }
 }
