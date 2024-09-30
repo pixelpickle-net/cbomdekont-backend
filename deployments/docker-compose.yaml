@@ -2,17 +2,17 @@ version: "3.9"
 
 services:
   traefik:
-    image: traefik:v2.9
+    image: traefik:v2.5
     ports:
       - "80:80"
-      - "443:443"
+      # - "443:443"  # HTTPS portunu kaldırıyoruz
       - "8080:8080"
     networks:
       - external-net
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./traefik.yml:/etc/traefik/traefik.yml:ro
-      - ./letsencrypt:/letsencrypt
+      # - ./letsencrypt:/letsencrypt  # SSL sertifikalarına artık ihtiyacımız yok
 
   app:
     build:
@@ -31,8 +31,8 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.app.rule=Host(`backend.pixelpickle.net`)"
-      - "traefik.http.routers.app.entrypoints=websecure"
-      - "traefik.http.routers.app.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.app.entrypoints=web"  # 'websecure' yerine 'web' kullanıyoruz
+      # - "traefik.http.routers.app.tls.certresolver=letsencrypt"  # SSL yapılandırmasını kaldırıyoruz
       - "traefik.http.services.app.loadbalancer.server.port=80"
     expose:
       - '80'
@@ -41,4 +41,3 @@ networks:
   external-net:
     name: external-net
     driver: bridge
-
