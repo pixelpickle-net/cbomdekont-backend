@@ -37,6 +37,20 @@ services:
     expose:
       - '80'
 
+  static-files:
+    image: nginx:alpine
+    volumes:
+      - ./local_test.csv:/usr/share/nginx/html/local_test.csv:ro
+    networks:
+      - external-net
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.static.rule=PathPrefix(`/static/`)"
+      - "traefik.http.routers.static.entrypoints=web"
+      - "traefik.http.services.static.loadbalancer.server.port=80"
+      - "traefik.http.middlewares.static-strip.stripprefix.prefixes=/static"
+      - "traefik.http.routers.static.middlewares=static-strip"
+
 networks:
   external-net:
     name: external-net
